@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import { authRouter } from "./modules/auth/auth.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { projectsRouter } from "./modules/projects/projects.routes.js";
 
 export function createApp() {
   const app = express();
@@ -14,6 +15,7 @@ export function createApp() {
     res.json({ status: "ok" });
   });
   app.use("/api/auth", authRouter);
+  app.use("/api/projects", projectsRouter);
 
   app.use(errorHandler);
   return app;
