@@ -2,6 +2,7 @@ import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { useAuth } from "./auth-context";
 import { LoginPage } from "./pages/LoginPage";
 import { ProjectsPage } from "./pages/ProjectsPage";
+import { BoardPage } from "./pages/BoardPage";
 
 function RequireLogin() {
   const { user, loading } = useAuth();
@@ -16,7 +17,7 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route element={<RequireLogin />}>
         <Route path="/" element={<ProjectsPage />} />
-        <Route path="/projects/:projectId" element={<p className="center">Board coming next</p>} />
+        <Route path="/projects/:projectId" element={<BoardPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
