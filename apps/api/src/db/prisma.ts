@@ -8,7 +8,8 @@ const adapter = new PrismaMssql({
   user: config.DB_USER,
   password: config.DB_PASSWORD,
   database: config.DB_NAME,
-  options: { encrypt: true, trustServerCertificate: true },
+  connectionTimeout: 60_000,
+  options: { encrypt: true, trustServerCertificate: config.DB_TRUST_CERT },
 });
 
 export const prisma = new PrismaClient({ adapter });

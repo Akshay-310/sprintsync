@@ -6,7 +6,9 @@
   "scripts": {
 "dev": "tsx watch src/index.ts",
 "typecheck": "tsc --noEmit",
-"test": "vitest run"
+"test": "vitest run",
+"db:generate": "prisma generate",
+"start": "prisma migrate deploy && tsx src/index.ts"
   },
   "keywords": [],
   "author": "",
