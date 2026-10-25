@@ -1,0 +1,45 @@
+name: Deploy API to Azure
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --include=dev
+
+      - name: Generate Prisma client
+        run: npm run db:generate --workspace api
+
+      - name: Type-check
+        run: npm run typecheck --workspace api
+
+      - name: Run tests
+        run: npm test --workspace api
+
+      - name: Apply database migrations
+        run: npx prisma migrate deploy
+        working-directory: apps/api
+
+      - name: Remove dev dependencies
+        run: npm prune --omit=dev
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: sprintsync-api-akshay
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .

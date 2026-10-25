@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-"dev": "tsx watch src/index.ts",
-"typecheck": "tsc --noEmit",
-"test": "vitest run",
-"db:generate": "prisma generate",
-"start": "prisma migrate deploy && tsx src/index.ts"
-  },
+  "dev": "tsx watch src/index.ts",
+  "typecheck": "tsc --noEmit",
+  "test": "vitest run",
+  "db:generate": "prisma generate",
+  "start": "tsx src/index.ts",
+  "start:migrate": "prisma migrate deploy && tsx src/index.ts"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "dotenv": "^18.0.7",
     "express": "^5.3.0",
     "helmet": "^8.3.0",
+    "tsx": "^4.23.15",
     "jsonwebtoken": "^9.0.3",
     "socket.io": "^4.8.4",
     "zod": "^4.6.7"
@@ -36,7 +38,6 @@
     "@types/supertest": "^7.2.1",
     "prisma": "^7.10.0",
     "supertest": "^7.3.1",
-    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "vitest": "^5.0.4"
   }
